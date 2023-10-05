@@ -1,14 +1,15 @@
 name: init_folder_architecture
-description: A sample command-line application.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: >-
+  CLI utility will generate folder architecture to help you and save your time when creating the first Flutter project.
+version: 0.0.1
+homepage: https://github.com/anwar907/init_folder_architecture
+
 
 environment:
-  sdk: ^3.1.3
+  sdk: ">=3.1.3 < 4.0.0"
 
 # Add regular dependencies here.
 dependencies:
-  # path: ^1.8.0
   args: ^2.4.2
 
 dev_dependencies:
