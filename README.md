@@ -12,8 +12,10 @@ utils/
 ```
 
 ## Command usage
-> Inside folder `lib/`
-```dart bin/init_folder_architecture.dart --init=app```
+
+- hit `dart pub global activate init_folder_architecture` in your commandline
+- setup path environment in your local machine
+- Inside folder `lib/` hit command ```init --init=app```
 
 
 ## Maintenance
