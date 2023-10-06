@@ -1,8 +1,9 @@
-## 0.1.0 (2023-10-06)
+## 0.1.1 (2023-10-06)
 
 ### Added
 
-- Features: executable in your terminal using cli command
+- Add `example` folder
+- update docs intruction
 
 ### Fixed
 
