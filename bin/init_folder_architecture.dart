@@ -1,3 +1,5 @@
+#!/usr/bin/env dart
+
 import 'package:args/args.dart';
 import 'package:init_folder_architecture/init_folder_architecture.dart';
 
