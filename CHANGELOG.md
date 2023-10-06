@@ -1,22 +1,6 @@
-## 0.1.1 (2023-10-06)
+## 0.1.2 (2023-10-07)
 
 ### Added
 
-- Add `example` folder
-- update docs intruction
-
-### Fixed
-
-- None.
-
-### Changed
-
-- None.
-
-### Deprecated
-
-- None.
-
-### Removed
-
-- None.
+- Improve documentation and performance
+- Add unit test generate file

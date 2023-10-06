@@ -1,7 +1,7 @@
 name: init_folder_architecture
 description: >-
   CLI utility will generate folder architecture to help you and save your time when creating the first Flutter project.
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/anwar907/init_folder_architecture
 
 
