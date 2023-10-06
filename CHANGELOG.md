@@ -1,10 +1,8 @@
-## 0.0.1 (2023-10-06)
+## 0.1.0 (2023-10-06)
 
 ### Added
 
-- Initial release of the folder generator CLI.
-  - Feature: Ability to create folders and files.
-  - Feature: Accepts command-line arguments for folder and file names.
+- Features: executable in your terminal using cli command
 
 ### Fixed
 
