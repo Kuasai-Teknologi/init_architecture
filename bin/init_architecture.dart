@@ -1,7 +1,7 @@
 #!/usr/bin/env dart
 
 import 'package:args/args.dart';
-import 'package:init_folder_architecture/init_folder_architecture.dart';
+import 'package:init_architecture/init_architecture.dart';
 
 void main(List<String> arguments) {
   final parser = ArgParser()..addOption('init', abbr: 'i', mandatory: true);

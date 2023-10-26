@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:init_folder_architecture/files.dart';
+import 'package:init_architecture/files.dart';
 import 'package:test/test.dart';
 
 void main() {

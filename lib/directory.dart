@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:init_folder_architecture/files.dart';
+import 'package:init_architecture/files.dart';
 
 // This function generates a folder with the given name if it doesn't already exist.
 // It also creates three sub-folders inside the main folder: 'themes', 'core', and 'utils'.
