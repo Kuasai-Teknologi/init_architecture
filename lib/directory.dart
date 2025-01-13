@@ -3,13 +3,27 @@ import 'dart:io';
 import 'package:init_architecture/files.dart';
 import 'package:init_architecture/find_flutter_path.dart';
 
-// This function generates a folder with the given name if it doesn't already exist.
-// It also creates three sub-folders inside the main folder: 'themes', 'core', and 'utils'.
-// For each sub-folder, it checks if it already exists, and if not, it creates the sub-folder and generates a file inside it.
-// Finally, it calls the 'subFolder' function passing the main folder name as an argument.
-
-/// The [name] parameter is the name of the folder to generate.
-
+/// Generates a set of directories for a given project structure.
+///
+/// This function creates the main directories used in a typical Flutter project architecture,
+/// including 'themes', 'core', 'utils', and a custom 'packages' directory. Each directory
+/// is created recursively, ensuring that all parent directories exist. After creating these
+/// directories, it also initializes a new package in the 'packages' directory using Flutter's
+/// CLI tools, specifically tailored for repository packages.
+///
+/// Additionally, this function calls `subFolder` to create more specific subdirectories
+/// within the project structure based on the provided [name].
+///
+/// Errors during directory creation are caught and logged, indicating if a directory
+/// already exists.
+///
+/// Parameters:
+///   - [name] : The base name used for creating specific subdirectories and naming the
+///              custom package within the 'packages' directory.
+///
+/// Example usage:
+///   generateFolder("my_project");
+///
 void generateFolder(String name) {
   // Create three additional directories: themes, core, and utils
   Directory themes = Directory('lib/themes');
@@ -35,6 +49,7 @@ void generateFolder(String name) {
       .then((value) => generateFile(value.path))
       .catchError((error) => print('Folder $error already exists'));
 
+  // Create the packages directory and initialize a new package
   packages.create(recursive: true).then((value) async {
     final path = await findFlutterPath() ?? '';
     return Process.runSync(
@@ -45,30 +60,31 @@ void generateFolder(String name) {
   subFolder(name);
 }
 
-// Define a function named subFolder that takes a string parameter named name
+/// The subFolder function is designed to create sub-folders within a specified directory structure.
+/// The [name] parameter is the name of the main folder where the sub-folders will be created.
 void subFolder(String name) {
-  // Create a Directory object named repository with the path '$name/repository'
+  // Create a Directory object for the 'repository' sub-folder within the [name] folder.
   Directory repository = Directory('lib/$name/repository');
 
-  // Create a Directory object named modules with the path '$name/modules'
+  // Create a Directory object for the 'modules' sub-folder within the [name] folder.
   Directory modules = Directory('lib/$name/modules');
 
-  // Create a Directory object named data with the path '$name/data'
+  // Create a Directory object for the 'data' sub-folder within the [name] folder.
   Directory data = Directory('lib/$name/data');
 
-  // Create the repository directory and its parent directories if they don't exist
+  // Create the 'repository' directory and its parent directories if they do not exist.
   repository
       .create(recursive: true)
       .then((value) => print('Sub Folder $repository created successfully'))
       .catchError((error) => print('Error creating $repository: $error'));
 
-  // Create the modules directory and its parent directories if they don't exist
+  // Create the 'modules' directory and its parent directories if they do not exist.
   modules
       .create(recursive: true)
       .then((value) => print('Sub Folder $modules created successfully'))
       .catchError((error) => print('Error creating $modules: $error'));
 
-  // Create the data directory and its parent directories if they don't exist
+  // Create the 'data' directory and its parent directories if they do not exist.
   data
       .create(recursive: true)
       .then((value) => print('Sub Folder $data created successfully'))
