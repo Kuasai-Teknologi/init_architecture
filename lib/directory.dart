@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:init_architecture/files.dart';
+import 'package:init_architecture/find_flutter_path.dart';
 
 // This function generates a folder with the given name if it doesn't already exist.
 // It also creates three sub-folders inside the main folder: 'themes', 'core', and 'utils'.
@@ -10,28 +11,11 @@ import 'package:init_architecture/files.dart';
 /// The [name] parameter is the name of the folder to generate.
 
 void generateFolder(String name) {
-  // Create a Directory object with the given name
-  Directory root = Directory(name);
-
-  // Check if the directory doesn't exist
-  if (!root.existsSync()) {
-    // Create the directory recursively
-    root.createSync(recursive: true);
-
-    // Generate a file inside the created directory
-    generateFile(root.path);
-
-    // Print a success message
-    print('Folder $root created successfully');
-  } else {
-    // If the directory already exists, print a message
-    print('Folder $root already exits');
-  }
-
   // Create three additional directories: themes, core, and utils
-  Directory themes = Directory('themes');
-  Directory core = Directory('core');
-  Directory utils = Directory('utils');
+  Directory themes = Directory('lib/themes');
+  Directory core = Directory('lib/core');
+  Directory utils = Directory('lib/utils');
+  Directory packages = Directory('packages');
 
   // Create the themes directory and generate a file inside it
   themes
@@ -51,6 +35,12 @@ void generateFolder(String name) {
       .then((value) => generateFile(value.path))
       .catchError((error) => print('Folder $error already exists'));
 
+  packages.create(recursive: true).then((value) async {
+    final path = await findFlutterPath() ?? '';
+    return Process.runSync(
+        path, ['create', '--template=package', 'packages/${name}_repository']);
+  });
+
   // Call the subFolder function with the given name
   subFolder(name);
 }
@@ -58,13 +48,13 @@ void generateFolder(String name) {
 // Define a function named subFolder that takes a string parameter named name
 void subFolder(String name) {
   // Create a Directory object named repository with the path '$name/repository'
-  Directory repository = Directory('$name/repository');
+  Directory repository = Directory('lib/$name/repository');
 
   // Create a Directory object named modules with the path '$name/modules'
-  Directory modules = Directory('$name/modules');
+  Directory modules = Directory('lib/$name/modules');
 
   // Create a Directory object named data with the path '$name/data'
-  Directory data = Directory('$name/data');
+  Directory data = Directory('lib/$name/data');
 
   // Create the repository directory and its parent directories if they don't exist
   repository
