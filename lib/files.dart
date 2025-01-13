@@ -37,28 +37,3 @@ void generateFile(String name) {
     print('File $fileName already exists');
   }
 }
-
-// Fungsi baru untuk menghasilkan file dokumentasi dalam bahasa Inggris
-void generateDocs(String name) {
-  // Membuat objek File dengan nama dan path yang diberikan
-  File docFile = File('$name/docs_english.md');
-
-  // Inisialisasi variabel untuk menyimpan konten dokumentasi
-  String docsContent =
-      "# Documentation for $name\n\nThis is the English documentation for the module $name.";
-
-  // Periksa apakah file sudah ada
-  if (!docFile.existsSync()) {
-    // Jika file tidak ada, buat file dan direktori induknya
-    docFile.createSync(recursive: true);
-
-    // Tulis konten ke dalam file
-    docFile.writeAsStringSync(docsContent);
-
-    // Cetak pesan sukses
-    print('Documentation $docFile created successfully');
-  } else {
-    // Jika file sudah ada, cetak pesan
-    print('Documentation $docFile already exists');
-  }
-}

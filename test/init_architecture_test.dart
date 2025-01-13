@@ -1,10 +1,59 @@
 import 'dart:io';
 
 import 'package:init_architecture/files.dart';
+import 'package:init_architecture/generate_repository.dart';
+import 'package:init_architecture/runner_helper.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+class MockProcessRunner extends Mock implements ProcessRunner {}
+
+class MockDirectory extends Mock implements Directory {}
 
 void main() {
   // Group of unit tests for generating a file
+
+  group('generate Repository', () {
+    late MockProcessRunner mockRunner;
+
+    setUp(() {
+      mockRunner = MockProcessRunner();
+    });
+    test('should not proceed if flutter executable is not found', () async {
+      // Setel mockRunner.run agar menghasilkan output Future<ProcessResult>
+      when(mockRunner.run('/path/to/flutter', ['arg1', 'arg2'])).thenReturn(
+          Future.value(ProcessResult(0, 1, '', 'No flutter found')));
+
+      // Jalankan fungsi yang memanggil mockRunner.run
+      await mockRunner.run('/path/to/flutter', ['arg1', 'arg2']);
+
+      // Verifikasi bahwa mockRunner.run dipanggil
+      verify(mockRunner.run('/path/to/flutter', ['arg1', 'arg2'])).called(1);
+    });
+
+    test('should create package if flutter executable is found', () async {
+      // Set up mock to return a valid flutter path.
+      when(mockRunner.run(
+        Platform.isWindows ? 'where' : 'which',
+        ['flutter'],
+      )).thenAnswer((_) async => ProcessResult(0, 0, '/path/to/flutter', ''));
+
+      // Mock the directory creation process.
+      final mockDirectory = MockDirectory();
+      when(mockDirectory.create(recursive: true))
+          .thenAnswer((_) async => mockDirectory);
+
+      // Call the function.
+      await generateRepository('test', mockRunner);
+
+      // Verify flutter create is called with the correct arguments.
+      verify(mockRunner.run('/path/to/flutter', [
+        'create',
+        '--template=package',
+        'packages/test_respository'
+      ])).called(1);
+    });
+  });
   group('unit test generate file', () {
     // Test case: create a new file successfully
     test('generateFile create a new file successfully', () {

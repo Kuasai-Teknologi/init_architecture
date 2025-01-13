@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:init_architecture/files.dart';
-import 'package:init_architecture/find_flutter_path.dart';
+import 'package:init_architecture/generate_repository.dart';
+import 'package:init_architecture/runner_helper.dart';
 
 /// Generates a set of directories for a given project structure.
 ///
@@ -29,7 +30,6 @@ void generateFolder(String name) {
   Directory themes = Directory('lib/themes');
   Directory core = Directory('lib/core');
   Directory utils = Directory('lib/utils');
-  Directory packages = Directory('packages');
 
   // Create the themes directory and generate a file inside it
   themes
@@ -49,12 +49,10 @@ void generateFolder(String name) {
       .then((value) => generateFile(value.path))
       .catchError((error) => print('Folder $error already exists'));
 
+  final runner = ProcessRunner();
+
   // Create the packages directory and initialize a new package
-  packages.create(recursive: true).then((value) async {
-    final path = await findFlutterPath() ?? '';
-    return Process.runSync(
-        path, ['create', '--template=package', 'packages/${name}_repository']);
-  });
+  generateRepository(name, runner);
 
   // Call the subFolder function with the given name
   subFolder(name);
