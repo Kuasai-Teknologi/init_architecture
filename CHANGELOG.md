@@ -1,6 +1,10 @@
-## 0.1.3 (2023-10-07)
+## [0.1.4] - (2025-01-13)
 
 ### Added
 
-- Improve documentation and performance
-- Rename package
+- Added command auto generate packages repository
+
+### Fixed
+
+- Restructure folder
+- Upgrade SDK version to latest
