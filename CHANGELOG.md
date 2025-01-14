@@ -1,10 +1,11 @@
-## [0.1.4] - (2025-01-13)
+## [0.1.7] 
 
 ### Added
 
-- Added command auto generate packages repository
-
+- Improve documentation
+- Added unit test for generate file, repository and directory
+<!-- 
 ### Fixed
 
-- Restructure folder
-- Upgrade SDK version to latest
+<!-- - Restructure folder -->
+<!-- - Upgrade SDK version to latest --> -->

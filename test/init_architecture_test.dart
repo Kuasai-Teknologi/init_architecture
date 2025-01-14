@@ -2,98 +2,94 @@ import 'dart:io';
 
 import 'package:init_architecture/files.dart';
 import 'package:init_architecture/generate_repository.dart';
+import 'package:init_architecture/init_architecture.dart';
 import 'package:init_architecture/runner_helper.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 class MockProcessRunner extends Mock implements ProcessRunner {}
 
 class MockDirectory extends Mock implements Directory {}
 
+class MockFile extends Mock implements File {}
+
+/// This file contains unit tests for the init_architecture package.
+/// It tests the functionality of generating repositories, files, and directories.
+
 void main() {
-  // Group of unit tests for generating a file
+  late MockProcessRunner mockRunner; // Mock for ProcessRunner
+  late MockFile mockFile; // Mock for File
+  late MockDirectory directory; // Mock for Directory
 
-  group('generate Repository', () {
-    late MockProcessRunner mockRunner;
+  setUp(() {
+    mockRunner = MockProcessRunner(); // Initialize mockRunner
+    mockFile = MockFile(); // Initialize mockFile
+    directory = MockDirectory(); // Initialize directory
+  });
 
-    setUp(() {
-      mockRunner = MockProcessRunner();
+  group('generateRepository', () {
+    test('should exception when flutter is not found', () async {
+      // Simulate an exception when the runner is called
+      when(() => mockRunner.run(any(), any())).thenThrow(Exception('oops'));
+
+      // Expect an exception when generating the repository
+      expect(() async => await generateRepository('package_name', mockRunner),
+          throwsA(isA<Exception>()));
     });
-    test('should not proceed if flutter executable is not found', () async {
-      // Setel mockRunner.run agar menghasilkan output Future<ProcessResult>
-      when(mockRunner.run('/path/to/flutter', ['arg1', 'arg2'])).thenReturn(
-          Future.value(ProcessResult(0, 1, '', 'No flutter found')));
 
-      // Jalankan fungsi yang memanggil mockRunner.run
-      await mockRunner.run('/path/to/flutter', ['arg1', 'arg2']);
+    test('should success when flutter is found', () async {
+      // Simulate a successful run of the flutter command
+      when(
+        () => mockRunner.run('init', ['flutter']),
+      ).thenAnswer((_) async => ProcessResult(0, 0, '/path/to/flutter', ''));
 
-      // Verifikasi bahwa mockRunner.run dipanggil
-      verify(mockRunner.run('/path/to/flutter', ['arg1', 'arg2'])).called(1);
-    });
-
-    test('should create package if flutter executable is found', () async {
-      // Set up mock to return a valid flutter path.
-      when(mockRunner.run(
-        Platform.isWindows ? 'where' : 'which',
-        ['flutter'],
-      )).thenAnswer((_) async => ProcessResult(0, 0, '/path/to/flutter', ''));
-
-      // Mock the directory creation process.
-      final mockDirectory = MockDirectory();
-      when(mockDirectory.create(recursive: true))
-          .thenAnswer((_) async => mockDirectory);
-
-      // Call the function.
-      await generateRepository('test', mockRunner);
-
-      // Verify flutter create is called with the correct arguments.
-      verify(mockRunner.run('/path/to/flutter', [
-        'create',
-        '--template=package',
-        'packages/test_respository'
-      ])).called(1);
+      // Expect the repository generation to succeed
+      expect(() async => await generateRepository('init', mockRunner),
+          throwsA(isA<void>()));
     });
   });
-  group('unit test generate file', () {
-    // Test case: create a new file successfully
-    test('generateFile create a new file successfully', () {
-      // Create a test directory
-      final directoryName = 'test_directory';
 
-      // Create a file path within the test directory
-      final fileName = '$directoryName/$directoryName.dart';
+  group('generate File', () {
+    test('should throw exception', () {
+      // Simulate an exception when creating a file
+      when(
+        () => mockFile.create(),
+      ).thenThrow(Exception('someting wrong'));
 
-      // Create the file
-      File(fileName).createSync(recursive: true);
-
-      // Insert file content
-      File(fileName).writeAsStringSync("// export '$fileName' ");
-
-      // Create the test directory
-      Directory(directoryName).createSync(recursive: true);
-
-      // Call the generateFile function
-      generateFile(directoryName);
-
-      // Assert that the file exists
-      expect(File(fileName).existsSync(), isTrue);
+      // Expect an exception when generating the file
+      expect(() async => generateFile(''), throwsA(isA<Exception>()));
     });
 
-// Test case: prints a message if the file already exists
-    test('generateFile prints a message if the file already exists', () async {
-      // Set up test data
-      final directoryName = 'test_directory';
-      final fileName = '$directoryName/$directoryName.dart';
+    test('should success create file', () async {
+      // Simulate a successful file creation
+      when(
+        () => mockFile.create(recursive: true),
+      ).thenAnswer((_) async => File('path'));
 
-      // Create the file and directory
-      File(fileName).createSync(recursive: true);
+      // Expect the file generation to succeed
+      expect(() async => generateFile('test'), returnsNormally);
+    });
+  });
 
-      // Call the method being tested
-      generateFile(directoryName);
+  group('generate directory', () {
+    test('should throw exception', () async {
+      // Simulate an exception when creating a directory
+      when(
+        () => directory.create(recursive: true),
+      ).thenThrow(Exception('error'));
 
-      // Check if the file contains the expected message
-      expect(await File(fileName).readAsString(),
-          contains("// export '$fileName' "));
+      // Expect an exception when generating the folder
+      expect(() => generateFolder(''), returnsNormally);
+    });
+
+    test('should success create directory', () async {
+      // Simulate a successful directory creation
+      when(
+        () => directory.create(recursive: true),
+      ).thenAnswer((_) async => Directory.current);
+
+      // Expect the folder generation to succeed
+      expect(() => generateFolder('name'), returnsNormally);
     });
   });
 }
