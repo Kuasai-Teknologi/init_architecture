@@ -1,26 +1,34 @@
-Don't waste your time when creating your first project to set up your own architecture. This package will help you to improve your setup architecture and if you have own architecture related please submit PR to this repo on github
+When you're working on your first project, don't go out of your way to set up your own architecture. This package will help you improve your setup architecture. If you have any architecture-related PRs, submit them to this GitHub repository.
 
 ## Example
+
 ```md
-app/
-┣ data/
-┣ repository/
-┣ modules/
-┣ index.dart
-core/
-┣ index.dart
-themes/
-┣ index.dart
-utils/
-┣ index.dart
+my-project/
+├── lib/
+│ ├── app/
+│ │ ├── data/
+│ │ ├── modules/
+│ │ ├── repository/
+│ ├── core/
+│ ├── utils/
+│ ├── themes/
+├── packages/
+│ │ ├── app_repository
+├── tests/
+├── .gitignore
+├── LICENSE
+├── README.md
 ```
 
 ## Command usage
 
+
 - hit `dart pub global activate init_architecture` in your commandline
 - setup path environment in your local machine
-- Inside folder `lib/` hit command ```init --init=app```
+- `init --init app` generate file, directory, and package repository
+- `init --packages app` only generate package repository
 
+for the first setup project use --init to get all structure and use --packages to create package repository for some feature
 
 ## Maintenance
-will continue improve better experience
+The main target of this package to generate architecture base on state management want to use e.g bloc, getx, provider etc. when start new project from scratch this package will help you to organize the project

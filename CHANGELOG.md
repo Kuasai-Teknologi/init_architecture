@@ -1,9 +1,8 @@
-## [0.1.5] 
+## [0.1.6]
 
 ### Added
 
 - Improve documentation
-- Added unit test for generate file, repository and directory
 <!-- 
 ### Fixed
 
