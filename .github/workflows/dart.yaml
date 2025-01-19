@@ -56,13 +56,17 @@ jobs:
       - name: Run tests
         run: dart test --coverage --test-randomize-ordering-seed
 
+      - name: Check if coverage report exists
+        run: |
+          ls -l coverage/
+
       # Upload coverage to Codecov after finish unit test opration
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: anwar907/init_architecture
-          files: coverage/lcov-report.info
+          files: coverage/lcov.info
           fail_ci_if_error: true 
 
       # Publish to pub.dev
