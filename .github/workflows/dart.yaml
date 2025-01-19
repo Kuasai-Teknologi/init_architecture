@@ -51,10 +51,10 @@ jobs:
         run: sudo apt-get install lcov
 
       # - name: Grant execute permission to coverage.sh
-      #   run: chmod +x tools/coverage.sh
+      #   run: chmod +x tool/coverage.sh
 
       - name: Run coverage script
-        run: sh tools/coverage.sh
+        run: sh tool/coverage.sh
 
       # Your project will need to have tests in test/ and a dependency on
       # package:test for this step to succeed. Note that Flutter projects will
@@ -82,4 +82,4 @@ jobs:
       # Publish to pub.dev
       # Note that this step may take a while to complete.
       - name: Publish pub.dev
-        run: dart pub publish -n
+        run: dart pub publish
