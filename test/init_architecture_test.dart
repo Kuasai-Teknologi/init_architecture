@@ -63,7 +63,11 @@ void main() {
         when(() => mockRunner.run('/path/to/flutter', any())).thenThrow(
             ProcessException(
                 '/path/to/flutter',
-                ['create', '--template=package', 'packages/test_repository'],
+                [
+                  'create',
+                  '--template=package',
+                  'example/packages/test_repository'
+                ],
                 'No such file or directory',
                 1));
 
@@ -83,8 +87,11 @@ void main() {
 
         await generateRepository('test', mockRunner);
 
-        final result = await Process.run('flutter',
-            ['create', '--template=package', 'packages/test_repository']);
+        final result = await Process.run('flutter', [
+          'create',
+          '--template=package',
+          'example/packages/test_repository'
+        ]);
 
         expect(result.exitCode, 0);
         expect(result.stdout, contains('All done!'));
@@ -110,7 +117,7 @@ void main() {
             final result = await mockRunner.run('flutte', [
               'create',
               '--template=package',
-              'packages/test_repository',
+              'example/packages/test_repository',
             ]);
 
             if (result.exitCode != 0) {
@@ -154,7 +161,7 @@ void main() {
           ).thenAnswer((_) async => File('path'));
 
           // Expect the file generation to succeed
-          expect(() async => generateFile('test'), returnsNormally);
+          expect(() async => generateFile('example/test'), returnsNormally);
         },
       );
     },
