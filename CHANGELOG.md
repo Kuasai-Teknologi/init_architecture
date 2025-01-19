@@ -1,3 +1,10 @@
+## [0.1.8] 
+
+### Added
+
+- Provide result an example
+- Improve docs
+
 ## [0.1.7] 
 
 ### Added

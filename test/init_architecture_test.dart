@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:init_architecture/files.dart';
-import 'package:init_architecture/generate_repository.dart';
 import 'package:init_architecture/init_architecture.dart';
-import 'package:init_architecture/runner_helper.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

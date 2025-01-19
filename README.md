@@ -6,7 +6,7 @@ When you're working on your first project, don't go out of your way to set up yo
 ## Example
 
 ```md
-my-project/
+example/
 ├── lib/
 │ ├── app/
 │ │ ├── data/
@@ -28,10 +28,10 @@ my-project/
 
 - hit `dart pub global activate init_architecture` in your commandline
 - setup path environment in your local machine
-- `init --init app` generate file, directory, and package repository
-- `init --packages app` only generate package repository
+- `init --init name_directory` generate file, directory, and package repository
+- `init --packages name_repository` only generate package repository
 
-for the first setup project use --init to get all structure and use --packages to create package repository for some feature
+for the first setup project use `--init` to get all structure and use `--packages` to create package repository for some feature
 
 ## Maintenance
-The main target of this package to generate architecture base on state management want to use e.g bloc, getx, provider etc. when start new project from scratch this package will help you to organize the project
+The main target of this package to generate architecture base on state management want to use e.g `bloc`, `getx`, `provider` etc. when start new project from scratch this package will help you to organize the project

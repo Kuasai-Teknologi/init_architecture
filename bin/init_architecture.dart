@@ -1,9 +1,7 @@
 #!/usr/bin/env dart
 
 import 'package:args/args.dart';
-import 'package:init_architecture/generate_repository.dart';
 import 'package:init_architecture/init_architecture.dart';
-import 'package:init_architecture/runner_helper.dart';
 
 /// The main entry point of the Dart script.
 /// Provides a CLI for generating folder architectures or package repositories.
