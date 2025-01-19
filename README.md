@@ -1,5 +1,8 @@
 When you're working on your first project, don't go out of your way to set up your own architecture. This package will help you improve your setup architecture. If you have any architecture-related PRs, submit them to this GitHub repository.
 
+
+[![codecov](https://codecov.io/github/anwar907/init_architecture/graph/badge.svg?token=C5AJQDOA15)](https://codecov.io/github/anwar907/init_architecture)
+
 ## Example
 
 ```md
