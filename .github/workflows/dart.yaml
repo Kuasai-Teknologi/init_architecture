@@ -39,7 +39,16 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: dart test
+        run: dart test --coverage
+
+      # Upload coverage to Codecov after finish unit test opration
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: anwar907/init_architecture
+          files: coverage/lcov-report.info
+          fail_ci_if_error: true 
 
       # Publish to pub.dev
       # Note that this step may take a while to complete.

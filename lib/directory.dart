@@ -58,8 +58,16 @@ void generateFolder(String name) {
   subFolder(name);
 }
 
-/// The subFolder function is designed to create sub-folders within a specified directory structure.
-/// The [name] parameter is the name of the main folder where the sub-folders will be created.
+/// Creates a set of sub-folders (`repository`, `modules`, and `data`) within the specified main folder.
+///
+/// The function ensures that the directory structure under `lib/[name]` is created and logs success
+/// or error messages for each sub-folder. For example, calling `subFolder('my_app')` will create:
+/// - `lib/my_app/repository`
+/// - `lib/my_app/modules`
+/// - `lib/my_app/data`
+///
+/// Parameters:
+/// - `name`: The name of the main folder where the sub-folders will be created.
 void subFolder(String name) {
   // Create a Directory object for the 'repository' sub-folder within the [name] folder.
   Directory repository = Directory('lib/$name/repository');

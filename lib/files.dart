@@ -1,7 +1,22 @@
 import 'dart:io';
 
-/// Generates a file with the given [name].
-/// Method to generate a file
+/// Generates a Dart file with the specified name.
+///
+/// This function creates a file named `index.dart` inside a folder with the provided
+/// `name` and writes predefined content based on the `name` value. If the file already
+/// exists, no new content is written, and a message is logged instead.
+///
+/// - For `name` set to `'app'`, the file contains sample exports for repository, modules,
+///   and data files.
+/// - For other names, the file contains a generic export statement.
+///
+/// Example:
+/// ```dart
+/// generateFile('app');
+/// ```
+///
+/// Parameters:
+/// - `name`: The name of the folder where the file will be created.
 void generateFile(String name) {
   // Create a File object with the given name and path
   File fileName = File('$name/index.dart');
@@ -19,7 +34,7 @@ void generateFile(String name) {
 
     // For any other name, set the content variable with a generic comment
     default:
-      content = "// export 'file_name.dart' ";
+      content = "// export 'file_name.dart';";
   }
 
   // Check if the file already exists

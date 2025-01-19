@@ -3,24 +3,55 @@ import 'dart:io';
 import 'package:init_architecture/runner_helper.dart';
 
 /// Asynchronously generates a new package repository in the 'packages' directory.
+///
+/// This function uses the Flutter CLI to create a new package repository. It first
+/// locates the Flutter executable, ensures the 'packages' directory exists, and then
+/// runs the 'flutter create' command to generate the repository.
+///
+/// Throws:
+/// - [Exception] if the Flutter executable cannot be found.
+/// - [Exception] if the 'flutter create' command fails.
+///
+/// Example:
+/// ```dart
+/// final runner = ProcessRunner();
+/// try {
+///   await generateRepository('example', runner);
+///   print('Repository created successfully!');
+/// } catch (e) {
+///   print('Failed to create repository: $e');
+/// }
+/// ```
+///
+/// Parameters:
+/// - `name`: The name of the package repository to create.
+/// - `runner`: The process runner used to execute system commands.
 Future<void> generateRepository(String name, ProcessRunner runner) async {
-  // Initialize the directory object pointing to 'packages'.
-  Directory packages = Directory('packages');
+  try {
+    // Locate the Flutter executable.
+    var flutterPath = await runner.run(
+      Platform.isWindows ? 'where' : 'which',
+      ['flutter'],
+    );
 
-  // Determine the command based on the operating system.
-  String command = Platform.isWindows ? 'where' : 'which';
+    // If the Flutter executable is not found, throw an exception.
+    if (flutterPath.exitCode != 0) {
+      throw Exception('Flutter executable not found');
+    }
 
-  // Execute the command to find the 'flutter' executable path.
-  var path = await runner.run(command, ['flutter']);
+    // Ensure the 'packages' directory exists.
+    Directory packages = Directory('packages');
+    await packages.create(recursive: true);
 
-  // If the command fails (non-zero exit code), exit the function.
-  if (path.exitCode != 0) return;
+    // Run the 'flutter create' command to generate the repository.
+    final result = await Process.run(
+      flutterPath.stdout.trim(),
+      ['create', '--template=package', 'packages/${name}_repository'],
+    );
 
-  // Create the 'packages' directory if it doesn't exist, then create the package.
-  packages.create(recursive: true).then((value) {
-    // Run the flutter create command synchronously using the found path,
-    // specifying the package template and the target directory with the new package name.
-    return Process.runSync(path.stdout.trim(),
-        ['create', '--template=package', 'packages/${name}_respository']);
-  });
+    // If the command fails, throw an exception with the error message.
+    if (result.exitCode != 0) throw Exception(result.stderr);
+  } catch (e) {
+    rethrow;
+  }
 }
