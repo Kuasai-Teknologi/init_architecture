@@ -36,6 +36,8 @@ lcov --remove "${PROJECT_COVERAGE}" -o "${FILTERED_COVERAGE}" \
 genhtml "${FILTERED_COVERAGE}" -o "${COVERAGE_DIR}"
 
 # Buka laporan coverage di browser (opsional)
-open "${COVERAGE_DIR}/index.html"
+# open "${COVERAGE_DIR}/index.html"
 
 cd "${INITIAL_PATH}"
+
+exit 0

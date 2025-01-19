@@ -64,7 +64,7 @@ jobs:
 
       - name: Verify coverage file before upload
         run: |
-          if [ -f coverage/lcov-report.info ]; then
+          if [ -f coverage/lcov.info ]; then
             echo "Coverage report found!"
           else
             echo "Coverage report not found!"
