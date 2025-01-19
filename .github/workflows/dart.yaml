@@ -21,7 +21,9 @@ jobs:
         run: |
           git clone https://github.com/flutter/flutter.git /opt/flutter
           echo "/opt/flutter/bin" >> $GITHUB_PATH
-          flutter --version
+
+      - name: Run flutter doctor
+        run: flutter doctor
 
       # Note: This workflow uses the latest stable version of the Dart SDK.
       # You can specify other versions if desired, see documentation here:
@@ -31,13 +33,7 @@ jobs:
 
 
       - name: Verify Flutter
-        run: which flutter && flutter --version
-
-      - name: Check directory structure
-        run: ls -la packages || echo "packages directory not found"
-
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y git curl unzip xz-utils libglu1-mesa
+        run: which flutter
 
 
       - name: Install dependencies
