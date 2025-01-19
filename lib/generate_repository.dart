@@ -38,13 +38,13 @@ Future<void> generateRepository(String name, ProcessRunner runner) async {
     if (flutterPath.exitCode != 0) throw Exception(flutterPath.stderr);
 
     // Ensure the 'packages' directory exists.
-    Directory packages = Directory('packages');
+    Directory packages = Directory('example/packages');
     await packages.create(recursive: true);
 
     // Run the 'flutter create' command to generate the repository.
     final result = await Process.run(
       flutterPath.stdout.trim(),
-      ['create', '--template=package', 'packages/${name}_repository'],
+      ['create', '--template=package', 'example/packages/${name}_repository'],
     );
 
     // If the command fails, throw an exception with the error message.

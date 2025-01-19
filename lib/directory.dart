@@ -27,9 +27,9 @@ import 'package:init_architecture/runner_helper.dart';
 ///
 void generateFolder(String name) {
   // Create three additional directories: themes, core, and utils
-  Directory themes = Directory('lib/themes');
-  Directory core = Directory('lib/core');
-  Directory utils = Directory('lib/utils');
+  Directory themes = Directory('example/lib/themes');
+  Directory core = Directory('example/lib/core');
+  Directory utils = Directory('example/lib/utils');
 
   // Create the themes directory and generate a file inside it
   themes
@@ -55,7 +55,7 @@ void generateFolder(String name) {
   generateRepository(name, runner);
 
   // Call the subFolder function with the given name
-  subFolder(name);
+  subFolder('lib/$name');
 }
 
 /// Creates a set of sub-folders (`repository`, `modules`, and `data`) within the specified main folder.
@@ -70,13 +70,13 @@ void generateFolder(String name) {
 /// - `name`: The name of the main folder where the sub-folders will be created.
 void subFolder(String name) {
   // Create a Directory object for the 'repository' sub-folder within the [name] folder.
-  Directory repository = Directory('lib/$name/repository');
+  Directory repository = Directory('example/$name/repository');
 
   // Create a Directory object for the 'modules' sub-folder within the [name] folder.
-  Directory modules = Directory('lib/$name/modules');
+  Directory modules = Directory('example/$name/modules');
 
   // Create a Directory object for the 'data' sub-folder within the [name] folder.
-  Directory data = Directory('lib/$name/data');
+  Directory data = Directory('example/$name/data');
 
   // Create the 'repository' directory and its parent directories if they do not exist.
   repository
