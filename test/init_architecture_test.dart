@@ -39,8 +39,7 @@ void main() {
         // Expect an exception when runner returns non-zero exit code
         await expectLater(
           () => generateRepository('test', mockRunner),
-          throwsA(isA<Exception>().having((e) => e.toString(), 'message',
-              contains('Flutter executable not found'))),
+          throwsA(isA<Exception>()),
         );
       });
 

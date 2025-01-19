@@ -35,9 +35,7 @@ Future<void> generateRepository(String name, ProcessRunner runner) async {
     );
 
     // If the Flutter executable is not found, throw an exception.
-    if (flutterPath.exitCode != 0) {
-      throw Exception('Flutter executable not found');
-    }
+    if (flutterPath.exitCode != 0) throw Exception(flutterPath.stderr);
 
     // Ensure the 'packages' directory exists.
     Directory packages = Directory('packages');
