@@ -47,6 +47,9 @@ jobs:
       - name: Analyze project source
         run: dart analyze
 
+      - name: Install lcov
+        run: sudo apt-get install lcov
+
       - name: Grant execute permission to coverage.sh
         run: chmod +x tools/coverage.sh
 
