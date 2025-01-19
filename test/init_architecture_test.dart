@@ -37,8 +37,8 @@ void main() {
             (_) async => ProcessResult(0, 1, '', 'Command not found'));
 
         // Expect an exception when runner returns non-zero exit code
-        await expectLater(
-          () => generateRepository('test', mockRunner),
+        expect(
+          () async => await generateRepository('test', mockRunner),
           throwsA(isA<Exception>()),
         );
       });
