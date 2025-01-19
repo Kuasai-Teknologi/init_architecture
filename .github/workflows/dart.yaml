@@ -83,6 +83,7 @@ jobs:
       # Note that this step may take a while to complete.
       - name: Publish pub.dev
         run: echo "$PUB_DEV_TOKEN" > ~/.pub-cache/credentials.json
+      - run: dart pub publish --force
         env:
           PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
-      - run: dart pub publish --force
+      
