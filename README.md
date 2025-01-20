@@ -2,6 +2,7 @@ When you're working on your first project, don't go out of your way to set up yo
 
 
 [![codecov](https://codecov.io/github/anwar907/init_architecture/graph/badge.svg?token=C5AJQDOA15)](https://codecov.io/github/anwar907/init_architecture)
+<a href="https://github.com/Kuasai-Teknologi/init_architecture/actions"><img src="https://github.com/Kuasai-Teknologi/init_architecture/actions/workflows/dart.yaml/badge.svg" alt="Build Status"></a>
 
 ## Example
 
